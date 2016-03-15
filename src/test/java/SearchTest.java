@@ -1,20 +1,14 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.SeleniumDriver;
+import pages.BasePage;
 
-public class SearchTest {
+public class SearchTest extends BasePage {
 	public static void main(String[] args) {
-		// np=natalia petriv
-		/*
-		 * 2) there will be a lot of places when you need to go to the pages.
-		 * Better to move this action to separate method of the basePage class:
-		 * goToPage (String url)
-		 */
-		SeleniumDriver.getInstance().getWebDriver().get("http://www.google.com");
+		
+		BasePage basePage = new BasePage();
+		basePage.goToPage("http://www.google.com");
 
 		/*
 		 * np: 1) if there are a lot of tests that test google search, this
@@ -43,26 +37,13 @@ public class SearchTest {
 		 */
 		element.submit();
 
-		// np: getPageTitle can be method in BasePage class as probably it will
-		// be used again
-		System.out.println("Page title is: " + SeleniumDriver.getInstance().getWebDriver().getTitle());
+		System.out.println("Page title is: " + basePage.getPageTitle());
 
-		/*
-		 * np: wait for getPageTitleContains can be separate method in base
-		 * class Another qa that will read this code doesn't need to know all
-		 * the details of this method. He will better sees good name:
-		 * waitForPageTitleToContain(String pasrtialText)
-		 */
-
-		(new WebDriverWait(SeleniumDriver.getInstance().getWebDriver(), 10)).until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver d) {
-				return d.getTitle().toLowerCase().startsWith("cheese!");
-			}
-		});
+		basePage.waitUntilPageTitleStartsWithPartialText("cheese!");
 
 		// np: There is no assert in this test. At this point asserting must be
 		// done: do we receive expected page title
-		System.out.println("Page title is: " + SeleniumDriver.getInstance().getWebDriver().getTitle());
+		System.out.println("Page title is: " + basePage.getPageTitle());
 
 		/*
 		 * This will be done a lot of times, so separate method must be created

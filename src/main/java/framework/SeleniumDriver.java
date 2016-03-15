@@ -30,5 +30,4 @@ public class SeleniumDriver {
 	public void quitSeleniumDriver() {
 		getInstance().getWebDriver().quit();
 	}
-
 }
