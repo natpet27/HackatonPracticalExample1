@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +15,16 @@ public class BasePage {
 	public BasePage() {
 		seleniumWebDriver = SeleniumDriver.getInstance();
 		PageFactory.initElements(seleniumWebDriver.getWebDriver(), this);
+	}
+	
+	protected void clickOnWebElement(WebElement webElement) {
+		webElement.click();
+	}
+	
+	protected void enterTextIntoTextField(WebElement textField, String text) {
+		textField.click();
+		textField.clear();
+		textField.sendKeys(text);
 	}
 	
 	public String getPageTitle() {
